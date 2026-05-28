@@ -1,4 +1,6 @@
 import json
+import math
+
 
 def read_geojson(filename):
     with open(filename, "r", encoding="utf-8") as file:
@@ -14,7 +16,6 @@ def read_geojson(filename):
             ring = ring[:-1]
 
         ring = ring[100:800]
-
         return ring
 
     if geometry["type"] == "MultiPolygon":
@@ -24,15 +25,12 @@ def read_geojson(filename):
             ring = ring[:-1]
 
         ring = ring[100:800]
-
         return ring
 
     raise ValueError("Unsupported geometry type: " + geometry["type"])
-import math
 
 
 def perpendicular_distance(point, start, end):
-
     x0, y0 = point
     x1, y1 = start
     x2, y2 = end
@@ -52,6 +50,8 @@ def perpendicular_distance(point, start, end):
         return 0
 
     return numerator / denominator
+
+
 def douglas_peucker(points, epsilon):
     if len(points) < 3:
         return points
@@ -77,8 +77,8 @@ def douglas_peucker(points, epsilon):
 
     return [start, end]
 
-def write_geojson(points, output_file):
 
+def write_geojson(points, output_file):
     geojson_data = {
         "type": "FeatureCollection",
         "features": [
