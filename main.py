@@ -5,6 +5,10 @@ from dp import (
     write_geojson
 )
 
+input_file = "input2.geojson"
+output_file = "output2.geojson"
+epsilon = 0.0001
+
 
 input_file = "input.geojson"
 output_file = "output.geojson"
