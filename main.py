@@ -5,8 +5,8 @@ from dp import (
     write_geojson
 )
 
-input_file = "input2.geojson"
-output_file = "output2.geojson"
+input_file = "input.geojson"
+output_file = "output.geojson"
 epsilon = 0.0001
 
 
