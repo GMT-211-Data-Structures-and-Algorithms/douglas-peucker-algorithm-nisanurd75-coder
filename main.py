@@ -1,4 +1,4 @@
-from dp import read_geojson, perpendicular_distance
+from dp import read_geojson, perpendicular_distance, douglas_peucker
 
 
 input_file = "input.geojson"
@@ -14,3 +14,12 @@ distance = perpendicular_distance(
 )
 
 print("Distance:", distance)
+
+epsilon = 0.0001
+
+simplified_points = douglas_peucker(
+    points,
+    epsilon
+)
+
+print("Simplified points:", len(simplified_points))

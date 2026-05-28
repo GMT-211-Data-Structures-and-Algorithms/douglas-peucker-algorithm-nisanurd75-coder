@@ -11,10 +11,16 @@ def read_geojson(filename):
         return coordinates
 
     if geometry["type"] == "Polygon":
-        return coordinates[0]
+        ring = coordinates[0]
+        if ring[0] == ring[-1]:
+            ring = ring[:-1]
+        return ring
 
     if geometry["type"] == "MultiPolygon":
-        return coordinates[0][0]
+        ring = coordinates[0][0]
+        if ring[0] == ring[-1]:
+            ring = ring[:-1]
+        return ring
 
     raise ValueError("Unsupported geometry type: " + geometry["type"])
 import math
@@ -41,3 +47,27 @@ def perpendicular_distance(point, start, end):
         return 0
 
     return numerator / denominator
+def douglas_peucker(points, epsilon):
+    if len(points) < 3:
+        return points
+
+    max_distance = 0
+    index = 0
+
+    start = points[0]
+    end = points[-1]
+
+    for i in range(1, len(points) - 1):
+        distance = perpendicular_distance(points[i], start, end)
+
+        if distance > max_distance:
+            max_distance = distance
+            index = i
+
+    if max_distance > epsilon:
+        left_side = douglas_peucker(points[:index + 1], epsilon)
+        right_side = douglas_peucker(points[index:], epsilon)
+
+        return left_side[:-1] + right_side
+
+    return [start, end]
