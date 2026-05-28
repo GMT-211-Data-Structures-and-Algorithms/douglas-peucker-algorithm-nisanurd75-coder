@@ -7,19 +7,24 @@ def read_geojson(filename):
     geometry = data["features"][0]["geometry"]
     coordinates = geometry["coordinates"]
 
-    if geometry["type"] == "LineString":
-        return coordinates
-
     if geometry["type"] == "Polygon":
         ring = coordinates[0]
+
         if ring[0] == ring[-1]:
             ring = ring[:-1]
+
+        ring = ring[100:800]
+
         return ring
 
     if geometry["type"] == "MultiPolygon":
         ring = coordinates[0][0]
+
         if ring[0] == ring[-1]:
             ring = ring[:-1]
+
+        ring = ring[100:800]
+
         return ring
 
     raise ValueError("Unsupported geometry type: " + geometry["type"])
