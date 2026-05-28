@@ -1,4 +1,9 @@
-from dp import read_geojson, perpendicular_distance, douglas_peucker
+from dp import (
+    read_geojson,
+    perpendicular_distance,
+    douglas_peucker,
+    write_geojson
+)
 
 
 input_file = "input.geojson"
@@ -23,3 +28,12 @@ simplified_points = douglas_peucker(
 )
 
 print("Simplified points:", len(simplified_points))
+
+output_file = "output.geojson"
+
+write_geojson(
+    simplified_points,
+    output_file
+)
+
+print("Output file created.")

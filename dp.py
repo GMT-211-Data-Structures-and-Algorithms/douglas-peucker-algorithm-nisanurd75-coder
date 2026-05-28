@@ -71,3 +71,22 @@ def douglas_peucker(points, epsilon):
         return left_side[:-1] + right_side
 
     return [start, end]
+
+def write_geojson(points, output_file):
+
+    geojson_data = {
+        "type": "FeatureCollection",
+        "features": [
+            {
+                "type": "Feature",
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": points
+                },
+                "properties": {}
+            }
+        ]
+    }
+
+    with open(output_file, "w", encoding="utf-8") as file:
+        json.dump(geojson_data, file, indent=4)
